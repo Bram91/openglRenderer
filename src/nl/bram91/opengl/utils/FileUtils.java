@@ -1,16 +1,19 @@
 package nl.bram91.opengl.utils;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 
 public class FileUtils 
 {
 	
 	public static String readAsString(String path)
 	{
-		InputStream file = Class.class.getResourceAsStream(path);
+		InputStream file = null;
+		try {
+			final String dir = System.getProperty("user.dir");
+			file = new FileInputStream(new File(dir+"\\res"+path));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 		BufferedReader reader = new BufferedReader(new InputStreamReader(file));
 		String result = "";
 		try 
