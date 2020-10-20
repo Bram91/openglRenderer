@@ -14,6 +14,6 @@ uniform float timer = 0.0;
 void main()
 {
 	float y = aPos.y + (0.09*sin(2*PI*aPos.x+timer*2)+0.09*cos(2*PI*aPos.z+timer*2)) * 1;
-	gl_Position = mvp * vec4(aPos.x, y, aPos.z, 1.0);
+	gl_Position = mvp * vec4(aPos.x, aPos.y, aPos.z, 1.0);
     vertex.color = vec4(aPos.x+0.5,y,aPos.z,1.0);
 }

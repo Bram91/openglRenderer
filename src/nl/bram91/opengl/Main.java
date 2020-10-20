@@ -76,7 +76,7 @@ public class Main implements Runnable
 		int updates = 0;
 		long timer = System.currentTimeMillis();
 		
-		GL30.glPolygonMode(GL30.GL_FRONT_AND_BACK, GL30.GL_CULL_FACE);
+		GL30.glPolygonMode(GL30.GL_FRONT_AND_BACK, config.getRenderMode());
 		GL30.glClearColor(0.12f, 0.12f, 0.12f, 1.0f);
 		while(!glfwWindowShouldClose(window) && running)
 		{
