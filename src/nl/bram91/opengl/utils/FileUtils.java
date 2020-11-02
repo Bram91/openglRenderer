@@ -10,7 +10,7 @@ public class FileUtils
 		InputStream file = null;
 		try {
 			final String dir = System.getProperty("user.dir");
-			file = new FileInputStream(new File(dir+"\\res"+path));
+			file = new FileInputStream(new File(dir+"/res"+path));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}

@@ -79,13 +79,8 @@ void main()
 {
     //gl_FragColor = frag_in.normal;
     vec4 color;
-    if(frag_in.color.x<0)
-    {
-      color = vec4(1.0,0.0,1.0,1.0);
-    }
-    else
-    {
-        color = vec4(frag_in.color.rgb*2, 1.0);
-    }
+
+        color = vec4(frag_in.normal, 1.0);
+
     gl_FragColor = color*color;
 }

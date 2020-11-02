@@ -36,7 +36,7 @@ public class Scene
 		{
 			shader = new ShaderProgram("shader.vert", "shader.frag", "triangleShader.geom");
 		}
-		projection = new Matrix4f().perspective(45.0f, (float)Main.width/(float)Main.height, 0.1f, 10000.0f);
+		projection = new Matrix4f().perspective(45.0f, (float)Main.width/(float)Main.height, 0.001f, 10000.0f);
 		model = new Matrix4f();
 	}
 	public static float hueToRgb(float p, float q, float t) {
@@ -152,9 +152,9 @@ public class Scene
 
 
 		System.out.println("asd");
-		String model = FileUtils.readAsString("/tiles.dat");
+		/*String model = FileUtils.readAsString("/tiles.dat");
 		String[] parts = model.split("\n");
-		for (String vertices : parts)
+		/*for (String vertices : parts)
 		{
 			if(vertices.startsWith("c:"))
 			{
@@ -186,11 +186,11 @@ public class Scene
 					verts.add(Float.parseFloat(vertex) / 100);
 				}
 			}
-		}
-		model = FileUtils.readAsString("/staircase.obj");
-		parts = model.split("\n");
+		}*/
+		String model = FileUtils.readAsString("/bunny.obj");
+		String[] parts = model.split("\n");
 		ArrayList<Float> vertexes = new ArrayList();
-		zoom = 0;
+		zoom = 6;
 		for (String vertices : parts) {
 			if(vertices.startsWith("v "))
 			{
@@ -343,7 +343,7 @@ public class Scene
 
 	public void setScroll(double scrollY)
 	{
-		zoom += scrollY*10;
+		zoom += scrollY*0.05; System.out.println(zoom);
 	}
 	float rotateY = 2.5f;
 	float rotateZ = 2.2f;
@@ -378,19 +378,19 @@ public class Scene
 		}
 		if(i== 90)//Z
 		{
-			offsetX -= 2.1;
+			offsetX -= 2.1/300;
 		}
 		if(i== 88)//X
 		{
-			offsetX += 2.1;
+			offsetX += 2.1/300;
 		}
 		if(i== 67)//C
 		{
-			offsetY -= 2.1;
+			offsetY -= 2.1/300;
 		}
 		if(i== 86)//V
 		{
-			offsetY += 2.1;
+			offsetY += 2.1/300;
 		}
 
 	}
