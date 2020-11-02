@@ -1,12 +1,16 @@
 package nl.bram91.opengl;
 
+import java.nio.FloatBuffer;
+import org.lwjgl.BufferUtils;
 import static org.lwjgl.glfw.Callbacks.*;
 import static org.lwjgl.glfw.GLFW.*;
 
 import org.lwjgl.glfw.GLFWErrorCallback;
+import org.lwjgl.glfw.GLFWKeyCallback;
 import org.lwjgl.glfw.GLFWScrollCallback;
 import org.lwjgl.glfw.GLFWVidMode;
 import org.lwjgl.opengl.GL;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30;
 
 public class Main implements Runnable
@@ -17,7 +21,7 @@ public class Main implements Runnable
 	private Thread t;
 	public boolean running;
 	private Scene scene;
-	
+
 	public void start()
 	{
 		running = true;
@@ -42,6 +46,7 @@ public class Main implements Runnable
 		GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 		glfwSetWindowPos(window, (vidmode.width()-width)/2, (vidmode.height()-height)/2);
 		glfwSetScrollCallback(window, scroll_callback);
+		glfwSetKeyCallback(window,key_callback);
 		glfwMakeContextCurrent(window);
 		GL.createCapabilities(); //Generate OpenGL bindings
 		GL30.glEnable(GL30.GL_DEPTH_TEST);
@@ -53,6 +58,13 @@ public class Main implements Runnable
 		@Override
 		public void invoke(long window, double scrollX, double scrollY) {
 			scene.setScroll(scrollY);
+		}
+	};
+	private GLFWKeyCallback key_callback = new GLFWKeyCallback() {
+		@Override
+		public void invoke(long l, int i, int i1, int i2, int i3)
+		{
+			scene.setRotation(i);
 		}
 	};
 	public void render()
@@ -78,6 +90,17 @@ public class Main implements Runnable
 		
 		GL30.glPolygonMode(GL30.GL_FRONT_AND_BACK, config.getRenderMode());
 		GL30.glClearColor(0.12f, 0.12f, 0.12f, 1.0f);
+		FloatBuffer ambient = BufferUtils.createFloatBuffer(4);
+		ambient.put(new float[] { 0.05f, 0.05f, 0.05f, 1f, });
+		ambient.flip();
+		FloatBuffer position = BufferUtils.createFloatBuffer(4);
+		position.put(new float[] { 0f, 0f, 0f, 1f, });
+		position.flip();
+		GL30.glEnable(GL30.GL_LIGHTING);
+		GL30.glEnable(GL30.GL_LIGHT0);
+		GL30.glLightModelfv(GL30.GL_LIGHT_MODEL_AMBIENT,ambient);
+		GL30.glLightfv(GL30.GL_LIGHT0,GL30.GL_POSITION,position);
+		GL30.glEnable(GL30.GL_COLOR_MATERIAL);
 		while(!glfwWindowShouldClose(window) && running)
 		{
 			now = System.nanoTime();

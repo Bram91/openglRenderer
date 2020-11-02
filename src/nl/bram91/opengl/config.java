@@ -29,7 +29,7 @@ public class config
 		}
 		else
 		{
-			return modes[6];
+			return modes[8];
 		}
 	}
 
